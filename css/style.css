@@ -352,7 +352,8 @@ button {
 	color: var(--color-text-inverse);
 }
 
-.hero-menu-link {
+.hero-menu-link,
+.hero-button {
 	align-items: center;
 	justify-content: center;
 	width: 200px;
@@ -364,6 +365,15 @@ button {
 	font-size: 16px;
 	font-weight: 600;
 	text-decoration: none;
+}
+
+.hero-button {
+	gap: 8px;
+}
+
+.hero-button img {
+	width: 20px;
+	height: 20px;
 }
 
 
@@ -411,7 +421,8 @@ button {
 	object-fit: contain;
 }
 
-.favorite-coffee-name {
+.favorite-coffee-name,
+.favorite-coffee-card-title {
 	margin-top: 20px;
 	font-size: 24px;
 	font-weight: 600;
@@ -467,6 +478,8 @@ button {
 .favorite-coffee-control {
 	width: 40px;
 	height: 4px;
+	padding: 0;
+	border: none;
 	border-radius: 100px;
 	background-color: var(--color-border-primary);
 	transition: background-color var(--transition-duration);
@@ -572,6 +585,24 @@ button {
 	text-decoration: none;
 }
 
+.mobile-app-button img {
+	flex-shrink: 0;
+}
+
+.mobile-app-button span {
+	display: flex;
+	flex-direction: column;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+.mobile-app-button small {
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
 .mobile-app-button-icon {
 	flex-shrink: 0;
 }
@@ -596,11 +627,6 @@ button {
 .mobile-app-image {
 	flex: 0 1 630px;
 	width: min(630px, 50%);
-}
-
-.mobile-app-image img {
-	width: 100%;
-	height: auto;
 }
 
 
@@ -816,6 +842,48 @@ button {
 }
 
 
+/* MENU MORE BUTTON */
+
+.menu-more-button {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	margin-top: 40px;
+	padding: 0;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: 50%;
+	background-color: transparent;
+}
+
+.menu-more-button span {
+	position: relative;
+	width: 24px;
+	height: 24px;
+}
+
+.menu-more-button span::before,
+.menu-more-button span::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	background-color: var(--color-text-primary);
+	transform: translate(-50%, -50%);
+}
+
+.menu-more-button span::before {
+	width: 18px;
+	height: 2px;
+}
+
+.menu-more-button span::after {
+	width: 2px;
+	height: 18px;
+}
+
+
 /* DESKTOP HOVER */
 
 @media (hover: hover) {
@@ -829,7 +897,8 @@ button {
 		border-color: var(--color-border-inverse);
 	}
 
-	.hero-menu-link:hover {
+	.hero-menu-link:hover,
+	.hero-button:hover {
 		background-color: var(--color-background-container);
 		color: var(--color-text-inverse);
 	}
@@ -874,6 +943,15 @@ button {
 	.footer-contacts-phone:hover {
 		opacity: 0.7;
 	}
+
+	.menu-more-button:hover {
+		background-color: var(--color-background-container);
+	}
+
+	.menu-more-button:hover span::before,
+	.menu-more-button:hover span::after {
+		background-color: var(--color-text-inverse);
+	}
 }
 
 
@@ -884,6 +962,61 @@ button {
 	body {
 		padding-inline: 40px;
 	}
+
+	.hero {
+		padding: 100px 60px;
+	}
+
+	.favorite-coffee-slider {
+		min-height: 640px;
+	}
+
+	.about-images {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.about-image {
+		height: 590px;
+	}
+
+	.mobile-app {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 100px;
+	}
+
+	.mobile-app-offer {
+		width: 100%;
+	}
+
+	.mobile-app-image {
+		align-self: center;
+		width: min(630px, 100%);
+		flex-basis: auto;
+	}
+
+	.footer {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 100px;
+		padding: 100px 60px;
+	}
+
+	.footer-offer,
+	.footer-contacts {
+		width: 100%;
+	}
+
+	.menu-list {
+		grid-template-columns: repeat(2, 310px);
+	}
+}
+
+
+/* TABLET HEADER */
+
+@media (max-width: 768px) {
 
 	.header-menu-burger {
 		position: relative;
@@ -991,53 +1124,12 @@ button {
 		line-height: 1.25;
 	}
 
-	.hero {
-		padding: 100px 60px;
+	.menu-list-active .menu-card:nth-child(n + 5) {
+		display: none;
 	}
 
-	.favorite-coffee-slider {
-		min-height: 640px;
-	}
-
-	.about-images {
+	.menu-more-button {
 		display: flex;
-		flex-direction: column;
-	}
-
-	.about-image {
-		height: 590px;
-	}
-
-	.mobile-app {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 100px;
-	}
-
-	.mobile-app-offer {
-		width: 100%;
-	}
-
-	.mobile-app-image {
-		align-self: center;
-		width: min(630px, 100%);
-		flex-basis: auto;
-	}
-
-	.footer {
-		flex-direction: column;
-		align-items: stretch;
-		gap: 100px;
-		padding: 100px 60px;
-	}
-
-	.footer-offer,
-	.footer-contacts {
-		width: 100%;
-	}
-
-	.menu-list {
-		grid-template-columns: repeat(2, 310px);
 	}
 }
 
@@ -1143,7 +1235,7 @@ button {
 
 	.menu-tabs-button {
 		gap: 4px;
-		padding: 8px 7px 8px 7px;
+		padding: 8px 7px;
 	}
 
 	.menu-tabs {
@@ -1155,6 +1247,12 @@ button {
 	}
 }
 
+@media (max-width: 768px) {
+
+	.menu-list-active.menu-list-expanded .menu-card:nth-child(n + 5) {
+		display: flex;
+	}
+}
 
 /* REDUCED MOTION */
 

@@ -37,6 +37,39 @@ themeButton?.addEventListener('click', () => {
 
 const tabButtons = document.querySelectorAll('.menu-tabs-button');
 const menuLists = document.querySelectorAll('.menu-list');
+const menuMoreButton = document.querySelector('.menu-more-button');
+
+function resetMenuCards() {
+	menuLists.forEach((list) => {
+		list.classList.remove('menu-list-expanded');
+	});
+}
+
+function updateMoreButton() {
+	if (!menuMoreButton) {
+		return;
+	}
+
+	const activeList = document.querySelector('.menu-list-active');
+
+	if (!activeList) {
+		menuMoreButton.style.display = 'none';
+		return;
+	}
+
+	const hasMoreThanFourCards =
+		activeList.querySelectorAll('.menu-card').length > 4;
+
+	if (
+		window.innerWidth <= 768 &&
+		hasMoreThanFourCards &&
+		!activeList.classList.contains('menu-list-expanded')
+	) {
+		menuMoreButton.style.display = 'flex';
+	} else {
+		menuMoreButton.style.display = 'none';
+	}
+}
 
 tabButtons.forEach((button, index) => {
 	button.addEventListener('click', () => {
@@ -45,7 +78,10 @@ tabButtons.forEach((button, index) => {
 		});
 
 		menuLists.forEach((list) => {
-			list.classList.remove('menu-list-active');
+			list.classList.remove(
+				'menu-list-active',
+				'menu-list-expanded'
+			);
 		});
 
 		button.classList.add('menu-tabs-button-active');
@@ -53,7 +89,20 @@ tabButtons.forEach((button, index) => {
 		if (menuLists[index]) {
 			menuLists[index].classList.add('menu-list-active');
 		}
+
+		updateMoreButton();
 	});
+});
+
+menuMoreButton?.addEventListener('click', () => {
+	const activeList = document.querySelector('.menu-list-active');
+
+	if (!activeList) {
+		return;
+	}
+
+	activeList.classList.add('menu-list-expanded');
+	menuMoreButton.style.display = 'none';
 });
 
 
@@ -113,6 +162,13 @@ function prevSlide() {
 nextButton?.addEventListener('click', nextSlide);
 prevButton?.addEventListener('click', prevSlide);
 
+sliderControls.forEach((control, index) => {
+	control.addEventListener('click', () => {
+		currentSlide = index;
+		showSlide(currentSlide);
+	});
+});
+
 if (sliderCards.length) {
 	showSlide(currentSlide);
 }
@@ -166,8 +222,18 @@ headerActions?.querySelectorAll('a').forEach((link) => {
 	link.addEventListener('click', closeBurgerMenu);
 });
 
+
+// =========================
+// RESIZE
+// =========================
+
 window.addEventListener('resize', () => {
-	if (window.innerWidth > 1000) {
+	if (window.innerWidth > 768) {
 		closeBurgerMenu();
 	}
+
+	resetMenuCards();
+	updateMoreButton();
 });
+
+updateMoreButton();
