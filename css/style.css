@@ -176,7 +176,8 @@ body {
 		color var(--transition-duration);
 }
 
-body.menu-open {
+body.menu-open,
+body.modal-open {
 	overflow: hidden;
 }
 
@@ -328,13 +329,33 @@ button {
 /* HERO */
 
 .hero {
+	position: relative;
 	min-height: 644px;
 	margin-top: 20px;
 	padding: 100px;
+	overflow: hidden;
 	border-radius: 40px;
+
 	background-image: url("../images/img-hero.jpg");
 	background-size: cover;
 	background-position: center;
+}
+
+.hero-video {
+	position: absolute;
+	z-index: 0;
+	inset: 0;
+
+	width: 100%;
+	height: 100%;
+	max-width: none;
+
+	object-fit: cover;
+}
+
+.hero-content {
+	position: relative;
+	z-index: 1;
 }
 
 .hero-title {
@@ -404,16 +425,43 @@ button {
 	min-height: 640px;
 }
 
+.favorite-coffee-cards {
+	position: relative;
+	width: 480px;
+	min-height: 640px;
+	overflow: hidden;
+}
+
 .favorite-coffee-card {
-	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	display: flex;
 	flex-direction: column;
 	align-items: center;
+
 	width: 480px;
+
 	text-align: center;
+
+	opacity: 0;
+	visibility: hidden;
+	transform: translateX(40px);
+
+	transition:
+		opacity 0.5s ease,
+		transform 0.5s ease,
+		visibility 0.5s ease;
+
+	pointer-events: none;
 }
 
 .favorite-coffee-card-active {
-	display: flex;
+	opacity: 1;
+	visibility: visible;
+	transform: translateX(0);
+	pointer-events: auto;
 }
 
 .favorite-coffee-image {
@@ -446,15 +494,20 @@ button {
 .favorite-coffee-button {
 	position: absolute;
 	top: 50%;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 	width: 60px;
 	height: 60px;
 	padding: 0;
+
 	border: 1px solid var(--color-border-inverse);
 	border-radius: 50%;
+
 	background-color: transparent;
+
 	transform: translateY(-50%);
 }
 
@@ -811,6 +864,7 @@ button {
 	border: 1px solid var(--color-border-primary);
 	border-radius: 40px;
 	overflow: hidden;
+	cursor: pointer;
 }
 
 .menu-card-image {
@@ -913,10 +967,6 @@ button {
 		border-color: var(--color-background-container);
 		background-color: var(--color-background-container);
 		color: var(--color-text-inverse);
-	}
-
-	.menu-card {
-		cursor: pointer;
 	}
 
 	.menu-card:hover .menu-card-image {
@@ -1203,6 +1253,11 @@ button {
 		min-height: 460px;
 	}
 
+	.favorite-coffee-cards {
+		width: 100%;
+		min-height: 460px;
+	}
+
 	.favorite-coffee-card {
 		width: 100%;
 	}
@@ -1285,231 +1340,7 @@ button {
 }
 
 
-/* REDUCED MOTION */
-
-@media (prefers-reduced-motion: reduce) {
-
-	*,
-	::before,
-	::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
-	}
-}
-
-/* =========================
-   PRODUCT MODAL
-   ========================= */
-
-body.modal-open {
-	overflow: hidden;
-}
-
-.menu-card {
-	cursor: pointer;
-}
-
-.product-modal-overlay {
-	position: fixed;
-	inset: 0;
-	z-index: 1000;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	padding: 20px;
-
-	background: rgba(64, 63, 61, 0.8);
-}
-
-.product-modal {
-	display: flex;
-	gap: 20px;
-
-	width: min(800px, 100%);
-	padding: 16px;
-
-	border-radius: 40px;
-
-	background: var(--background-body);
-	color: var(--text-dark);
-}
-
-.product-modal-image-wrapper {
-	flex: 0 0 310px;
-
-	width: 310px;
-	height: 310px;
-
-	overflow: hidden;
-
-	border-radius: 40px;
-}
-
-.product-modal-image {
-	width: 100%;
-	height: 100%;
-
-	object-fit: cover;
-}
-
-.product-modal-content {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	gap: 20px;
-}
-
-.product-modal-title {
-	margin: 0;
-
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 1.25;
-}
-
-.product-modal-description {
-	margin: 0;
-
-	font-size: 16px;
-	line-height: 1.5;
-}
-
-.product-modal-group {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-}
-
-.product-modal-label {
-	margin: 0;
-
-	font-size: 16px;
-	line-height: 1.5;
-}
-
-.product-modal-options {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
-.product-modal-option {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-
-	min-height: 46px;
-	padding: 8px 16px 8px 8px;
-
-	border: 1px solid var(--border-light);
-	border-radius: 100px;
-
-	background: transparent;
-	color: var(--text-dark);
-
-	font: inherit;
-
-	cursor: pointer;
-}
-
-.product-modal-option-number {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	width: 30px;
-	height: 30px;
-
-	border-radius: 50%;
-
-	background: var(--border-light);
-}
-
-.product-modal-option-active {
-	border-color: var(--background-container);
-	background: var(--background-container);
-	color: var(--text-light);
-}
-
-.product-modal-option-active
-.product-modal-option-number {
-	background: var(--background-body);
-	color: var(--text-dark);
-}
-
-.product-modal-total {
-	display: flex;
-	justify-content: space-between;
-
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 1.25;
-}
-
-.product-modal-info {
-	display: flex;
-	gap: 8px;
-
-	padding: 12px 0;
-
-	border-top: 1px solid var(--border-light);
-}
-
-.product-modal-info-icon {
-	display: flex;
-	flex: 0 0 16px;
-	align-items: center;
-	justify-content: center;
-
-	width: 16px;
-	height: 16px;
-
-	border: 1px solid currentColor;
-	border-radius: 50%;
-
-	font-size: 10px;
-	font-weight: 600;
-}
-
-.product-modal-info p {
-	margin: 0;
-
-	font-size: 10px;
-	font-weight: 600;
-	line-height: 1.4;
-}
-
-.product-modal-close {
-	width: 100%;
-	min-height: 44px;
-
-	border: 1px solid var(--border-dark);
-	border-radius: 100px;
-
-	background: transparent;
-	color: var(--text-dark);
-
-	font: inherit;
-	font-weight: 600;
-
-	cursor: pointer;
-}
-
-/* =========================
-   PRODUCT MODAL
-   ========================= */
-
-body.modal-open {
-	overflow: hidden;
-}
-
-.menu-card {
-	cursor: pointer;
-}
+/* PRODUCT MODAL */
 
 .product-modal-overlay {
 	position: fixed;
@@ -1746,9 +1577,7 @@ body.modal-open {
 }
 
 
-/* =========================
-   PRODUCT MODAL MOBILE
-   ========================= */
+/* PRODUCT MODAL MOBILE */
 
 @media (max-width: 600px) {
 
@@ -1777,5 +1606,20 @@ body.modal-open {
 
 	.product-modal-option {
 		padding-right: 12px;
+	}
+}
+
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+
+	*,
+	::before,
+	::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }

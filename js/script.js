@@ -155,10 +155,10 @@ const coffeeControls =
 	document.querySelectorAll(".favorite-coffee-control");
 
 const previousButton =
-	document.querySelector(".favorite-coffee-button-prev");
+	document.querySelector(".favorite-coffee-button-left");
 
 const nextButton =
-	document.querySelector(".favorite-coffee-button-next");
+	document.querySelector(".favorite-coffee-button-right");
 
 let currentSlide = 0;
 
@@ -702,19 +702,14 @@ function openProductModal(product) {
 
 
 	function updateTotal() {
-
 		let totalValue =
 			product.price;
 
-
-		// Добавляем цену выбранного размера
 		totalValue +=
 			product.sizes[
 				selectedSize
 			].addPrice;
 
-
-		// Добавляем цену выбранных additives
 		selectedAdditives.forEach(
 			(index) => {
 				totalValue +=
@@ -723,7 +718,6 @@ function openProductModal(product) {
 					].addPrice;
 			}
 		);
-
 
 		totalPrice.textContent =
 			`$${totalValue.toFixed(2)}`;
@@ -825,6 +819,7 @@ function openProductModal(product) {
 
 
 	// Закрытие по overlay
+
 	productModal.addEventListener(
 		"click",
 		(event) => {
